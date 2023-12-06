@@ -10,6 +10,14 @@
 \usepackage{caption}
 \usepackage{lipsum}
 \usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+
 
 \usetikzlibrary{graphs}
 \usetikzlibrary{graphs.standard}
@@ -116,5 +124,84 @@ Izmed teh bom izbral tiste, katerih vrednosti sigma totalne iregularnosti bodo n
 ter algoritem, ki bi deloval na večjih redih n. Ustreznost in delovanje tega algoritma bom preveril v Sage-u.
 To bom storil tako da bom z majhnimi odstopanji od optimalnih grafov, najdenih s pomočjo že omenjenega
 algoritma, želel vedno dobiti manjšo vrednost sigma totalne iregularnosti. Tu si bom pomagal tudi z metahevristiko.
+
+\section{ugotovitve}
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Število vozlišč} & \textbf{Maksimalna Sigma Skupna Iregularnost} \\
+        \hline
+        3 & 2 \\
+        4 & 12 \\
+        5 & 36 \\
+        6 & 80 \\
+        7 & 150 \\
+        8 & 252 \\
+        9 & 392 \\
+        10 & 576 \\
+        20 & 9996 \\
+        30 & 50336 \\
+        40 & 159936 \\
+        50 & 390096 \\
+        60 & 809676 \\
+        70 & 1500000 \\
+        80 & 2520000 \\
+        90 & 3920000 \\
+        100 & 5760000 \\
+        \hline
+    \end{tabular}
+    \caption{Tabela največjih sigma skupnih iregularnosti glede na število vozlišč.}
+    \label{tab:tabela_sigma_skupnih}
+\end{table}
+
+\usetikzlibrary{positioning}
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=0.8, node distance=1cm]
+        % Central node
+        \node[circle, draw, fill=blue!30, minimum size=0.4cm] (center) {Center};
+        
+        % Other nodes on the right
+        \foreach \i in {1, ..., 5}
+            \node[circle, draw, fill=blue!30, minimum size=0.4cm, right=of center] (right\i) {Node \i};
+        
+        % Other nodes on the left
+        \foreach \i in {6, ..., 10}
+            \node[circle, draw, fill=blue!30, minimum size=0.4cm, left=of center] (left\i) {Node \i};
+        
+        % Edges from center to other nodes
+        \foreach \i in {1, ..., 5}
+            \draw (center) -- (right\i);
+        
+        % Edges from other nodes to center
+        \foreach \i in {6, ..., 10}
+            \draw (left\i) -- (center);
+    \end{tikzpicture}
+    \caption{Zvezdni graf z 11 vozlišči, center na levi strani.}
+    \label{fig:zvezdni_graf}
+\end{figure}
+
+\begin{center}
+    \begin{longtable}{|c|c|c|}
+        \hline
+        \textbf{Max Vozlišča} & \textbf{Max Sigma Totalna Iregularnost} & \textbf{Število Vozlišč Nabora 2} \\
+        \hline
+        50  & 390096  & 7  \\
+        100 & 6247500 & 15  \\
+        150 & 31640576 & 22 \\
+        200 & 99993276 & 29 \\
+        250 & 244121856 & 37 \\
+        300 & 506249216 & 44 \\
+        \hline
+    \end{longtable}
+\end{center}
+    
+
+
+
 
 \end{document}
